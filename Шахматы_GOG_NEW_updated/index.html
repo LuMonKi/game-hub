@@ -122,34 +122,23 @@
   <script>
     function scaleChessBoard() {
       const container = document.querySelector('.chess-container');
-      const chest = document.querySelector('.Chest');
       if (!container) return;
 
+      // Сбросить старые стили
+      container.style.zoom = '';
+      container.style.transform = '';
+      container.style.marginBottom = '';
+
       const vw = window.innerWidth;
-      if (vw >= 750) {
-        container.style.transform = '';
-        container.style.marginTop = '';
-        container.style.marginBottom = '';
-        if (chest) chest.style.height = '';
-        return;
-      }
+      if (vw >= 750) return;
 
-      const naturalW = 725;
-      const naturalH = 725;
-      const scale = (vw * 0.95) / naturalW;
-
-      // transform-origin: top center — верх остаётся на месте,
-      // низ поднимается. Убираем лишнее пространство только снизу.
-      container.style.transform = `scale(${scale})`;
-      container.style.transformOrigin = 'top center';
-      container.style.marginTop = '0px';
-
-      const scaledH = naturalH * scale;
-      container.style.marginBottom = (scaledH - naturalH) + 'px'; // отрицательное
-      if (chest) chest.style.height = scaledH + 'px';
+      // zoom меняет и визуал и layout — не нужны хаки с margin
+      const zoom = (vw * 0.97) / container.offsetWidth;
+      container.style.zoom = Math.min(1, zoom);
     }
 
-    document.addEventListener('DOMContentLoaded', scaleChessBoard);
+    // Запускаем после отрисовки всей страницы
+    window.addEventListener('load', scaleChessBoard);
     window.addEventListener('resize', scaleChessBoard);
   </script>
 </body>

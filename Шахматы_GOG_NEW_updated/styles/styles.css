@@ -616,8 +616,7 @@ button.ghost {
     width: 100vw;
     display: flex;
     justify-content: center;
-    overflow: hidden;
-  }
+    }
 
   /* Масштаб задаётся через JS */
   .chess-container {
