@@ -107,7 +107,6 @@ function captureInTurn(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -212,9 +211,7 @@ function moveElement(piece, id, castle) {
   }
 }
 
-// текущее состояние подсвеченной клетки
 let selfHighlightState = null;
-
 let moveState = null;
 
 function clearHighlightLocal() {
@@ -238,23 +235,18 @@ function whitePawnClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-  // убрать все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // логика выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -262,7 +254,7 @@ function whitePawnClick(square) {
 
   let hightlightSquareIds = null;
 
-  // При движении с начальной позиции
+  // с начальной позиции можно на 2 клетки
   if (current_pos[1] == "2") {
     hightlightSquareIds = [
       `${current_pos[0]}${Number(current_pos[1]) + 1}`,
@@ -279,7 +271,6 @@ function whitePawnClick(square) {
     element.highlight = true;
   });
 
-  // Логика ID
   const col1 = `${String.fromCharCode(current_pos[0].charCodeAt(0) - 1)}${
     Number(current_pos[1]) + 1
   }`;
@@ -288,7 +279,6 @@ function whitePawnClick(square) {
   }`;
 
   let captureIds = [col1, col2];
-  // captureIds = checkSquareCaptureId(captureIds);
 
   captureIds.forEach((element) => {
     checkPieceOfOpponentOnElement(element, "white");
@@ -307,23 +297,18 @@ function whiteBishopClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-  // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -340,13 +325,11 @@ function whiteBishopClick(square) {
   result.push(checkSquareCaptureId(bottomRight));
   result.push(checkSquareCaptureId(topRight));
 
-  // Сохранить во временный массив
   temp.push(bottomLeft);
   temp.push(topLeft);
   temp.push(bottomRight);
   temp.push(topRight);
 
-  // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
   hightlightSquareIds = result.flat();
 
   hightlightSquareIds.forEach((hightlight) => {
@@ -358,10 +341,8 @@ function whiteBishopClick(square) {
 
   for (let index = 0; index < temp.length; index++) {
     const arr = temp[index];
-
     for (let j = 0; j < arr.length; j++) {
       const element = arr[j];
-
       let checkPieceResult = checkWeatherPieceExistsOrNot(element);
       if (
         checkPieceResult &&
@@ -370,16 +351,11 @@ function whiteBishopClick(square) {
       ) {
         break;
       }
-
       if (checkPieceOfOpponentOnElement(element, "white")) {
         break;
       }
     }
   }
-
-
-  //   checkPieceOfOpponentOnElement(element, "white");
-  // });
 
   globalStateRender();
 }
@@ -394,23 +370,18 @@ function blackBishopClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-  // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -427,13 +398,11 @@ function blackBishopClick(square) {
   result.push(checkSquareCaptureId(bottomRight));
   result.push(checkSquareCaptureId(topRight));
 
-  // Сохранить во временный массив
   temp.push(bottomLeft);
   temp.push(topLeft);
   temp.push(bottomRight);
   temp.push(topRight);
 
-  // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
   hightlightSquareIds = result.flat();
 
   hightlightSquareIds.forEach((hightlight) => {
@@ -445,10 +414,8 @@ function blackBishopClick(square) {
 
   for (let index = 0; index < temp.length; index++) {
     const arr = temp[index];
-
     for (let j = 0; j < arr.length; j++) {
       const element = arr[j];
-
       let checkPieceResult = checkWeatherPieceExistsOrNot(element);
       if (
         checkPieceResult &&
@@ -457,21 +424,14 @@ function blackBishopClick(square) {
       ) {
         break;
       }
-
       if (checkPieceOfOpponentOnElement(element, "black")) {
         break;
       }
     }
   }
 
-
-  //   checkPieceOfOpponentOnElement(element, "white");
-  // });
-
   globalStateRender();
 }
-
-
 
 function blackRookClick(square) {
   const piece = square.piece;
@@ -483,23 +443,18 @@ function blackRookClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-  // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -516,13 +471,11 @@ function blackRookClick(square) {
   result.push(checkSquareCaptureId(right));
   result.push(checkSquareCaptureId(left));
 
-  // Сохранить во временный массив
   temp.push(bottom);
   temp.push(top);
   temp.push(right);
   temp.push(left);
 
-  // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
   hightlightSquareIds = result.flat();
 
   hightlightSquareIds.forEach((hightlight) => {
@@ -534,10 +487,8 @@ function blackRookClick(square) {
 
   for (let index = 0; index < temp.length; index++) {
     const arr = temp[index];
-
     for (let j = 0; j < arr.length; j++) {
       const element = arr[j];
-
       let checkPieceResult = checkWeatherPieceExistsOrNot(element);
       if (
         checkPieceResult &&
@@ -546,16 +497,11 @@ function blackRookClick(square) {
       ) {
         break;
       }
-
       if (checkPieceOfOpponentOnElement(element, "black")) {
         break;
       }
     }
   }
-
-
-  //   checkPieceOfOpponentOnElement(element, "white");
-  // });
 
   globalStateRender();
 }
@@ -570,23 +516,18 @@ function whiteRookClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-   // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -603,13 +544,11 @@ function whiteRookClick(square) {
   result.push(checkSquareCaptureId(right));
   result.push(checkSquareCaptureId(left));
 
-  // Сохранить во временный массив
   temp.push(bottom);
   temp.push(top);
   temp.push(right);
   temp.push(left);
 
-  // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
   hightlightSquareIds = result.flat();
 
   hightlightSquareIds.forEach((hightlight) => {
@@ -621,10 +560,8 @@ function whiteRookClick(square) {
 
   for (let index = 0; index < temp.length; index++) {
     const arr = temp[index];
-
     for (let j = 0; j < arr.length; j++) {
       const element = arr[j];
-
       let checkPieceResult = checkWeatherPieceExistsOrNot(element);
       if (
         checkPieceResult &&
@@ -633,16 +570,11 @@ function whiteRookClick(square) {
       ) {
         break;
       }
-
       if (checkPieceOfOpponentOnElement(element, "white")) {
         break;
       }
     }
   }
-
-
-  //   checkPieceOfOpponentOnElement(element, "white");
-  // });
 
   globalStateRender();
 }
@@ -657,23 +589,18 @@ function whiteKnightClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-   // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -681,50 +608,12 @@ function whiteKnightClick(square) {
 
   let hightlightSquareIds = giveKnightHighlightIds(current_pos);
 
-
-  // // Сохранить во временный массив
-  // temp.push(bottom);
-  // temp.push(top);
-  // temp.push(right);
-  // temp.push(left);
-
-  // // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
-  // hightlightSquareIds = result.flat();
-
-  // hightlightSquareIds.forEach((hightlight) => {
-  //   const element = keySquareMapper[hightlight];
-  //   element.highlight = true;
-  // });
-
   hightlightSquareIds.forEach((hightlight) => {
     const element = keySquareMapper[hightlight];
     element.highlight = true;
   });
 
   let captureIds = [];
-
-  // for (let index = 0; index < temp.length; index++) {
-  //   const arr = temp[index];
-
-  //   for (let j = 0; j < arr.length; j++) {
-  //     const element = arr[j];
-
-  //     let checkPieceResult = checkWeatherPieceExistsOrNot(element);
-  //     if (
-  //       checkPieceResult &&
-  //       checkPieceResult.piece &&
-  //       checkPieceResult.piece.piece_name.toLowerCase().includes("white")
-  //     ) {
-  //       break;
-  //     }
-
-  //     if (checkPieceOfOpponentOnElement(element, "white")) {
-  //       break;
-  //     }
-  //   }
-  // }
-
-
 
   hightlightSquareIds.forEach((element) => {
     checkPieceOfOpponentOnElement(element, "white");
@@ -743,52 +632,24 @@ function blackKnightClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-   // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
   const flatArray = globalState.flat();
 
   let hightlightSquareIds = giveKnightHighlightIds(current_pos);
-  // const { bottom, top, right, left } = hightlightSquareIds;
-  console.log(hightlightSquareIds);
-  // let temp = [];
-
-  // let result = [];
-  // result.push(checkSquareCaptureId(bottom));
-  // result.push(checkSquareCaptureId(top));
-  // result.push(checkSquareCaptureId(right));
-  // result.push(checkSquareCaptureId(left));
-
-  // // Сохранить во временный массив
-  // temp.push(bottom);
-  // temp.push(top);
-  // temp.push(right);
-  // temp.push(left);
-
-  // // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
-  // hightlightSquareIds = result.flat();
-
-  // hightlightSquareIds.forEach((hightlight) => {
-  //   const element = keySquareMapper[hightlight];
-  //   element.highlight = true;
-  // });
 
   hightlightSquareIds.forEach((hightlight) => {
     const element = keySquareMapper[hightlight];
@@ -796,29 +657,6 @@ function blackKnightClick(square) {
   });
 
   let captureIds = [];
-
-  // for (let index = 0; index < temp.length; index++) {
-  //   const arr = temp[index];
-
-  //   for (let j = 0; j < arr.length; j++) {
-  //     const element = arr[j];
-
-  //     let checkPieceResult = checkWeatherPieceExistsOrNot(element);
-  //     if (
-  //       checkPieceResult &&
-  //       checkPieceResult.piece &&
-  //       checkPieceResult.piece.piece_name.toLowerCase().includes("white")
-  //     ) {
-  //       break;
-  //     }
-
-  //     if (checkPieceOfOpponentOnElement(element, "white")) {
-  //       break;
-  //     }
-  //   }
-  // }
-
-
 
   hightlightSquareIds.forEach((element) => {
     checkPieceOfOpponentOnElement(element, "black");
@@ -837,23 +675,18 @@ function whiteQueenClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-   // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -863,14 +696,8 @@ function whiteQueenClick(square) {
   let temp = [];
 
   const {
-    bottomLeft,
-    topLeft,
-    bottomRight,
-    topRight,
-    top,
-    right,
-    left,
-    bottom,
+    bottomLeft, topLeft, bottomRight, topRight,
+    top, right, left, bottom,
   } = hightlightSquareIds;
 
   let result = [];
@@ -883,7 +710,6 @@ function whiteQueenClick(square) {
   result.push(checkSquareCaptureId(bottom));
   result.push(checkSquareCaptureId(left));
 
-  // Сохранить во временный массив
   temp.push(bottomLeft);
   temp.push(topLeft);
   temp.push(bottomRight);
@@ -893,7 +719,6 @@ function whiteQueenClick(square) {
   temp.push(bottom);
   temp.push(left);
 
-  // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
   hightlightSquareIds = result.flat();
 
   hightlightSquareIds.forEach((hightlight) => {
@@ -905,10 +730,8 @@ function whiteQueenClick(square) {
 
   for (let index = 0; index < temp.length; index++) {
     const arr = temp[index];
-
     for (let j = 0; j < arr.length; j++) {
       const element = arr[j];
-
       let checkPieceResult = checkWeatherPieceExistsOrNot(element);
       if (
         checkPieceResult &&
@@ -917,16 +740,11 @@ function whiteQueenClick(square) {
       ) {
         break;
       }
-
       if (checkPieceOfOpponentOnElement(element, "white")) {
         break;
       }
     }
   }
-
-
-  //   checkPieceOfOpponentOnElement(element, "white");
-  // });
 
   globalStateRender();
 }
@@ -941,23 +759,18 @@ function whiteKingClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-   // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -967,14 +780,8 @@ function whiteKingClick(square) {
   let temp = [];
 
   const {
-    bottomLeft,
-    topLeft,
-    bottomRight,
-    topRight,
-    top,
-    right,
-    left,
-    bottom,
+    bottomLeft, topLeft, bottomRight, topRight,
+    top, right, left, bottom,
   } = hightlightSquareIds;
 
   let result = [];
@@ -1008,7 +815,6 @@ function whiteKingClick(square) {
   result.push(checkSquareCaptureId(bottom));
   result.push(checkSquareCaptureId(left));
 
-  // Сохранить во временный массив
   temp.push(bottomLeft);
   temp.push(topLeft);
   temp.push(bottomRight);
@@ -1018,7 +824,6 @@ function whiteKingClick(square) {
   temp.push(bottom);
   temp.push(left);
 
-  // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
   hightlightSquareIds = result.flat();
 
   hightlightSquareIds.forEach((hightlight) => {
@@ -1030,10 +835,8 @@ function whiteKingClick(square) {
 
   for (let index = 0; index < temp.length; index++) {
     const arr = temp[index];
-
     for (let j = 0; j < arr.length; j++) {
       const element = arr[j];
-
       let checkPieceResult = checkWeatherPieceExistsOrNot(element);
       if (
         checkPieceResult &&
@@ -1042,19 +845,15 @@ function whiteKingClick(square) {
       ) {
         break;
       }
-
       if (checkPieceOfOpponentOnElement(element, "white")) {
         break;
       }
     }
   }
 
-
-  //   checkPieceOfOpponentOnElement(element, "white");
-  // });
-
   globalStateRender();
 }
+
 function blackKingClick(square) {
   const piece = square.piece;
 
@@ -1065,23 +864,18 @@ function blackKingClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-   // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -1090,14 +884,8 @@ function blackKingClick(square) {
   let temp = [];
 
   const {
-    bottomLeft,
-    topLeft,
-    bottomRight,
-    topRight,
-    top,
-    right,
-    left,
-    bottom,
+    bottomLeft, topLeft, bottomRight, topRight,
+    top, right, left, bottom,
   } = hightlightSquareIds;
 
   let result = [];
@@ -1131,7 +919,6 @@ function blackKingClick(square) {
   result.push(checkSquareCaptureId(bottom));
   result.push(checkSquareCaptureId(left));
 
-  // Сохранить во временный массив
   temp.push(bottomLeft);
   temp.push(topLeft);
   temp.push(bottomRight);
@@ -1141,7 +928,6 @@ function blackKingClick(square) {
   temp.push(bottom);
   temp.push(left);
 
-  // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
   hightlightSquareIds = result.flat();
 
   hightlightSquareIds.forEach((hightlight) => {
@@ -1153,10 +939,8 @@ function blackKingClick(square) {
 
   for (let index = 0; index < temp.length; index++) {
     const arr = temp[index];
-
     for (let j = 0; j < arr.length; j++) {
       const element = arr[j];
-
       let checkPieceResult = checkWeatherPieceExistsOrNot(element);
       if (
         checkPieceResult &&
@@ -1165,16 +949,11 @@ function blackKingClick(square) {
       ) {
         break;
       }
-
       if (checkPieceOfOpponentOnElement(element, "black")) {
         break;
       }
     }
   }
-
-
-  //   checkPieceOfOpponentOnElement(element, "white");
-  // });
 
   globalStateRender();
 }
@@ -1189,23 +968,18 @@ function blackQueenClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
     return;
   }
 
-   // Снять все выделения
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -1215,14 +989,8 @@ function blackQueenClick(square) {
   let temp = [];
 
   const {
-    bottomLeft,
-    topLeft,
-    bottomRight,
-    topRight,
-    top,
-    right,
-    left,
-    bottom,
+    bottomLeft, topLeft, bottomRight, topRight,
+    top, right, left, bottom,
   } = hightlightSquareIds;
 
   let result = [];
@@ -1235,7 +1003,6 @@ function blackQueenClick(square) {
   result.push(checkSquareCaptureId(bottom));
   result.push(checkSquareCaptureId(left));
 
-  // Сохранить во временный массив
   temp.push(bottomLeft);
   temp.push(topLeft);
   temp.push(bottomRight);
@@ -1245,7 +1012,6 @@ function blackQueenClick(square) {
   temp.push(bottom);
   temp.push(left);
 
-  // hightlightSquareIds = checkSquareCaptureId(hightlightSquareIds);
   hightlightSquareIds = result.flat();
 
   hightlightSquareIds.forEach((hightlight) => {
@@ -1257,10 +1023,8 @@ function blackQueenClick(square) {
 
   for (let index = 0; index < temp.length; index++) {
     const arr = temp[index];
-
     for (let j = 0; j < arr.length; j++) {
       const element = arr[j];
-
       let checkPieceResult = checkWeatherPieceExistsOrNot(element);
       if (
         checkPieceResult &&
@@ -1269,22 +1033,16 @@ function blackQueenClick(square) {
       ) {
         break;
       }
-
       if (checkPieceOfOpponentOnElement(element, "black")) {
         break;
       }
     }
   }
 
-
-  //   checkPieceOfOpponentOnElement(element, "white");
-  // });
-
   globalStateRender();
 }
 
 function blackPawnClick(square) {
-  // Очистить доску от всех предыдущих выделений
   const piece = square.piece;
 
   if (piece == selfHighlightState) {
@@ -1294,7 +1052,6 @@ function blackPawnClick(square) {
   }
 
   if (square.captureHighlight) {
-
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -1304,12 +1061,9 @@ function blackPawnClick(square) {
   clearPreviousSelfHighlight(selfHighlightState);
   clearHighlightLocal();
 
-  // Логика работы выделения
   selfHighlight(piece);
   hightlight_state = true;
   selfHighlightState = piece;
-
-  // Добавить фигуру в состояние хода
   moveState = piece;
 
   const current_pos = piece.current_position;
@@ -1317,7 +1071,7 @@ function blackPawnClick(square) {
 
   let hightlightSquareIds = null;
 
-  // При движении с начальной позиции
+  // с начальной позиции можно на 2 клетки
   if (current_pos[1] == "7") {
     hightlightSquareIds = [
       `${current_pos[0]}${Number(current_pos[1]) - 1}`,
@@ -1334,7 +1088,6 @@ function blackPawnClick(square) {
     element.highlight = true;
   });
 
-  // capture logic id
   const col1 = `${String.fromCharCode(current_pos[0].charCodeAt(0) - 1)}${
     Number(current_pos[1]) - 1
   }`;
@@ -1343,7 +1096,6 @@ function blackPawnClick(square) {
   }`;
 
   let captureIds = [col1, col2];
-  // captureIds = checkSquareCaptureId(captureIds);
 
   captureIds.forEach((element) => {
     checkPieceOfOpponentOnElement(element, "black");
@@ -1363,17 +1115,14 @@ function clearPreviousSelfHighlight(piece) {
     document
       .getElementById(piece.current_position)
       .classList.remove("highlightYellow");
-    console.log(piece);
     selfHighlightState = null;
   }
 }
-
 
 function GlobalEvent() {
   ROOT_DIV.addEventListener("click", function (event) {
     if (event.target.localName === "img") {
       const clickId = event.target.parentNode.id;
-
       const square = keySquareMapper[clickId];
 
       if (

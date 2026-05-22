@@ -86,7 +86,6 @@ class Bird {
 
   think(pipes) {
     const pipe = pipes.find(p => p.x + PIPE_W > this.x);
-    // Нет трубы — виртуальная цель по центру экрана
     const target = pipe || { x: W + 50, top: H / 2 - PIPE_GAP / 2 };
     const gapCenter = target.top + PIPE_GAP / 2;
     const inputs = [
@@ -183,7 +182,7 @@ function nextGeneration() {
   document.getElementById('gen').textContent = generation;
 
   const newBirds = [];
-  // Элита без мутаций
+  // элита без мутаций
   newBirds.push(new Bird(bestBrain.clone()));
 
   const top6 = sorted.slice(0, 6).map(b => b.brain);
@@ -263,11 +262,9 @@ function loop() {
 function update() {
   frameCount++;
 
-  // 1. Двигаем трубы
   if (frameCount % PIPE_INTERVAL === 0) pipes.push(new Pipe());
   pipes.forEach(p => p.update());
 
-  // 2. Считаем счёт до фильтрации труб — независимо от состояния птиц
   for (const p of pipes) {
     if (!p.passed && p.x + PIPE_W < BIRD_X) {
       p.passed = true;
@@ -277,11 +274,10 @@ function update() {
         best = score;
         document.getElementById('best').textContent = best;
       }
-      // Большой бонус к фитнесу за прохождение трубы
       if (aiEnabled) {
         for (const b of birds) {
           if (b.alive) {
-            b.fitness += 1000;
+            b.fitness += 1000; // бонус за трубу
             b.score++;
           }
         }
@@ -292,7 +288,6 @@ function update() {
   pipes = pipes.filter(p => p.x + PIPE_W > 0);
 
   if (aiEnabled) {
-    // 3. Обновляем птиц
     let alive = 0;
     for (const b of birds) {
       if (!b.alive) continue;
@@ -309,7 +304,7 @@ function update() {
 
     if (alive === 0) {
       nextGeneration();
-      pipes = [new Pipe()]; // сразу первая труба
+      pipes = [new Pipe()];
       frameCount = 0;
       score = 0;
       document.getElementById('score').textContent = 0;
@@ -348,9 +343,7 @@ function drawLog() {
   const padY = 6;
   const boxW = W - 10;
   const bx = 5;
-  const by = H - 30 - padY * 2 - 13 - genLog.length * lh - 22 - 5;
 
-  // Живая строка текущего поколения
   const aliveNow = birds.filter(b => b.alive).length;
   const bestNow  = birds.reduce((m, b) => b.fitness > m ? b.fitness : m, 0);
   const liveH = 20;
@@ -379,13 +372,11 @@ function drawLog() {
   ctx.lineWidth = 1;
   ctx.strokeRect(bx, logY, boxW, boxH);
 
-  // Заголовок
   ctx.fillStyle = '#ffdd88';
   ctx.font = 'bold 10px monospace';
   ctx.textAlign = 'left';
   ctx.fillText('ПОК    ЛУЧШИЙ   СРЕДНИЙ  ВЫЖИЛИ  ТРУБЫ  ТРЕНД', bx + padX, logY + padY + 10);
 
-  // Разделитель
   ctx.fillStyle = '#444';
   ctx.fillRect(bx + 4, logY + padY + 14, boxW - 8, 1);
 
@@ -393,8 +384,7 @@ function drawLog() {
     const y = logY + padY + 14 + (i + 1) * lh;
     const hasPipe = e.score > 0;
 
-    // Цвет строки
-    if (hasPipe)           ctx.fillStyle = '#77ff77';
+    if (hasPipe)                ctx.fillStyle = '#77ff77';
     else if (e.trend === '↑↑') ctx.fillStyle = '#ffe066';
     else if (e.trend === '↑')  ctx.fillStyle = '#cccccc';
     else                       ctx.fillStyle = '#888888';
@@ -413,6 +403,102 @@ function drawLog() {
   });
 }
 
+function drawVisuals() {
+  if (!aiEnabled) return;
+  ctx.save();
+
+  const gx = W - 135;
+  const gy = 8;
+  const gw = 128;
+  const gh = 58;
+
+  ctx.fillStyle = 'rgba(0,0,0,0.65)';
+  ctx.fillRect(gx, gy, gw, gh);
+  ctx.strokeStyle = '#444';
+  ctx.lineWidth = 1;
+  ctx.strokeRect(gx, gy, gw, gh);
+
+  ctx.fillStyle = '#ffdd88';
+  ctx.font = 'bold 8px monospace';
+  ctx.textAlign = 'left';
+  ctx.fillText('ФИТНЕС / ПОКОЛЕНИЕ', gx + 4, gy + 9);
+
+  if (genLog.length > 0) {
+    const maxF = Math.max(...genLog.map(e => e.best), 1);
+    const barW = Math.floor((gw - 8) / Math.max(genLog.length, 1));
+    genLog.forEach((e, i) => {
+      const bh = Math.floor((e.best / maxF) * (gh - 16));
+      const bx = gx + 4 + i * barW;
+      const by = gy + gh - bh - 2;
+      ctx.fillStyle = e.score > 0 ? '#66ff66' : (e.trend === '↑↑' ? '#ffe066' : '#6688cc');
+      ctx.fillRect(bx, by, Math.max(barW - 2, 1), bh);
+    });
+  }
+
+  const alive = birds.filter(b => b.alive);
+  if (alive.length > 0) {
+    const lead = alive.reduce((m, b) => b.fitness > m.fitness ? b : m, alive[0]);
+    const pipe = pipes.find(p => p.x + PIPE_W > BIRD_X);
+
+    if (pipe) {
+      const gapCenter = pipe.top + PIPE_GAP / 2;
+      const inputs = [
+        lead.y / H,
+        lead.vy / 15,
+        gapCenter / H,
+        Math.min((pipe.x - lead.x) / W, 1),
+        (lead.y - gapCenter) / H,
+      ];
+      const output = lead.brain.predict(inputs);
+
+      const mx = W - 135;
+      const my = gy + gh + 4;
+      const mw = 128;
+      const mh = 20;
+
+      ctx.fillStyle = 'rgba(0,0,0,0.65)';
+      ctx.fillRect(mx, my, mw, mh);
+      ctx.strokeStyle = '#444';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(mx, my, mw, mh);
+
+      const fillW = Math.round(output * (mw - 4));
+      ctx.setLineDash([]);
+      ctx.fillStyle = output > 0.5
+        ? `rgba(255, ${Math.round((1 - output) * 160)}, 60, 0.9)`
+        : `rgba(60, 180, 255, 0.75)`;
+      ctx.fillRect(mx + 2, my + 2, fillW, mh - 4);
+
+      ctx.fillStyle = '#fff';
+      ctx.font = 'bold 9px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        output > 0.5
+          ? `▲ ПРЫЖОК  ${(output * 100).toFixed(0)}%`
+          : `↓ ПАДЕНИЕ  ${(output * 100).toFixed(0)}%`,
+        mx + mw / 2, my + 13
+      );
+
+      ctx.setLineDash([4, 3]);
+      ctx.strokeStyle = 'rgba(255, 255, 100, 0.6)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(pipe.x - 6, gapCenter);
+      ctx.lineTo(pipe.x + PIPE_W + 6, gapCenter);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.arc(pipe.x + PIPE_W / 2, gapCenter, 5, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255, 255, 100, 0.9)';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+
+  ctx.restore();
+}
+
 function draw() {
   drawBg();
   pipes.forEach(p => p.draw());
@@ -424,6 +510,24 @@ function draw() {
       ctx.globalAlpha = 1;
     });
     birds.filter(b => b.alive).forEach(b => b.draw(true));
+
+    // линия к цели (куда летит AI)
+    const aliveBirds = birds.filter(b => b.alive);
+    if (aliveBirds.length > 0) {
+      const pipe = pipes.find(p => p.x + PIPE_W > BIRD_X);
+      if (pipe) {
+        const gapCenter = pipe.top + PIPE_GAP / 2; // центр щели
+        ctx.save();
+        ctx.setLineDash([6, 4]); // пунктир
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = 'rgba(255, 255, 100, 0.5)';
+        ctx.beginPath();
+        ctx.moveTo(BIRD_X, aliveBirds[0].y);
+        ctx.lineTo(pipe.x, gapCenter);
+        ctx.stroke();
+        ctx.restore();
+      }
+    }
   } else {
     if (playerBird) playerBird.draw(false);
   }
@@ -431,7 +535,8 @@ function draw() {
   ctx.fillStyle = 'rgba(0,0,0,0.35)';
   ctx.fillRect(0, H - 30, W, 30);
 
-  drawLog(); // поверх земли
+  drawLog();
+  drawVisuals();
 
   if (isOver && !aiEnabled) {
     ctx.fillStyle = 'rgba(0,0,0,0.55)';
