@@ -337,124 +337,6 @@ body {
   box-sizing: border-box;
 }
 
-/* ── MOBILE ── */
-@media (max-width: 750px) {
-  :root {
-    --sq: clamp(34px, calc((100vw - 70px) / 8), 75px);
-    --label: clamp(28px, calc((100vw - 70px) / 8 * 0.5), 60px);
-  }
-
-  body {
-    height: auto;
-    min-height: 100dvh;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 8px 0 20px;
-  }
-
-  /* Всё складываем в колонку */
-  .head {
-    flex-direction: column;
-    height: auto;
-    align-items: center;
-    gap: 6px;
-    width: 100%;
-  }
-
-  /* Меню кнопок — горизонтально сверху */
-  .head_Menu {
-    order: 1;
-    border: 2px solid #000;
-    margin: 0;
-    width: calc(8 * var(--sq) + var(--label) * 2);
-  }
-
-  .head_Menu_Reboot {
-    flex-direction: row;
-    border-right: none;
-    width: 100%;
-    justify-content: space-around;
-  }
-
-  .head_Menu_Reboot_But {
-    height: 46px;
-    width: auto;
-    flex: 1;
-    border-bottom: none;
-    border-right: 2px solid #000;
-  }
-
-  .head_Menu_Reboot_But:last-child {
-    border-right: none;
-  }
-
-  .head_Menu_Reboot_But a {
-    font-size: 10px;
-    margin: 0;
-  }
-
-  /* Доска */
-  .Chest {
-    order: 2;
-    height: auto;
-    max-height: none;
-  }
-
-  .chess-container {
-    max-height: none;
-  }
-
-  .chess-container .labels-top,
-  .chess-container .labels-bottom {
-    width: calc(8 * var(--sq));
-    height: calc(var(--label) * 0.8);
-    font-size: 11px;
-  }
-
-  .chess-container .labels-top .label,
-  .chess-container .labels-bottom .label {
-    font-size: 11px;
-  }
-
-  .chess-container .labels-side {
-    width: var(--label);
-    height: calc(8 * var(--sq));
-  }
-
-  .chess-container .labels-side .label {
-    font-size: 11px;
-  }
-
-  .chess-container .main-grid {
-    height: calc(8 * var(--sq));
-  }
-
-  /* Клетки */
-  .square {
-    width: var(--sq);
-    height: var(--sq);
-  }
-
-  /* Фигуры */
-  .piece {
-    max-width: var(--sq);
-    max-height: var(--sq);
-  }
-
-  /* Корень доски */
-  .Chest_Root {
-    height: calc(8 * var(--sq));
-  }
-
-  /* История ходов — снизу, компактная */
-  .MoveHistory {
-    order: 3;
-    width: calc(8 * var(--sq) + var(--label) * 2);
-    height: 80px;
-  }
-}
-
-
 
 body {
   font-family: "Montserrat", sans-serif;
@@ -673,4 +555,121 @@ button.ghost {
   height: 30px;
   letter-spacing: 15px;
   align-items: center;
-}/*# sourceMappingURL=styles.css.map */
+}
+/* ── MOBILE ── */
+@media (max-width: 750px) {
+  :root {
+    --sq: clamp(34px, calc((100vw - 70px) / 8), 75px);
+    --label: clamp(28px, calc((100vw - 70px) / 8 * 0.5), 60px);
+  }
+
+  body {
+    height: auto;
+    min-height: 100dvh;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 0 20px;
+  }
+
+  /* Всё складываем в колонку */
+  .head {
+    flex-direction: column;
+    height: auto;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+  }
+
+  /* Меню кнопок — горизонтально сверху */
+  .head_Menu {
+    order: 1;
+    border: 2px solid #000;
+    margin: 0;
+    width: calc(8 * var(--sq) + var(--label) * 2);
+  }
+
+  .head_Menu_Reboot {
+    flex-direction: row;
+    border-right: none;
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .head_Menu_Reboot_But {
+    height: 46px;
+    width: auto;
+    flex: 1;
+    border-bottom: none;
+    border-right: 2px solid #000;
+  }
+
+  .head_Menu_Reboot_But:last-child {
+    border-right: none;
+  }
+
+  .head_Menu_Reboot_But a {
+    font-size: 10px;
+    margin: 0;
+  }
+
+  /* Доска */
+  .Chest {
+    order: 2;
+    height: auto;
+    max-height: none;
+  }
+
+  .chess-container {
+    max-height: none;
+  }
+
+  .chess-container .labels-top,
+  .chess-container .labels-bottom {
+    width: calc(8 * var(--sq));
+    height: calc(var(--label) * 0.8);
+    font-size: 11px;
+  }
+
+  .chess-container .labels-top .label,
+  .chess-container .labels-bottom .label {
+    font-size: 11px;
+  }
+
+  .chess-container .labels-side {
+    width: var(--label);
+    height: calc(8 * var(--sq));
+  }
+
+  .chess-container .labels-side .label {
+    font-size: 11px;
+  }
+
+  .chess-container .main-grid {
+    height: calc(8 * var(--sq));
+  }
+
+  /* Клетки */
+  .square {
+    width: var(--sq);
+    height: var(--sq);
+  }
+
+  /* Фигуры */
+  .piece {
+    max-width: var(--sq);
+    max-height: var(--sq);
+  }
+
+  /* Корень доски */
+  .Chest_Root {
+    height: calc(8 * var(--sq));
+  }
+
+  /* История ходов — снизу, компактная */
+  .MoveHistory {
+    order: 3;
+    width: calc(8 * var(--sq) + var(--label) * 2);
+    height: 80px;
+  }
+}
+/*# sourceMappingURL=styles.css.map */
