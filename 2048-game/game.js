@@ -19,7 +19,6 @@ window.onload = function () {
   document.addEventListener('keydown', onKey);
 };
 
-// ─── Рестарт ──────────────────────────────────────────────────────────────────
 function restart() {
   grid = Array(SIZE).fill(null).map(() => Array(SIZE).fill(0));
   score = 0;
@@ -38,7 +37,6 @@ function restart() {
   }
 }
 
-// ─── Плитки ───────────────────────────────────────────────────────────────────
 function addTile() {
   const empty = [];
   for (let r = 0; r < SIZE; r++)
@@ -49,7 +47,6 @@ function addTile() {
   grid[r][c] = Math.random() < 0.9 ? 2 : 4;
 }
 
-// ─── Логика хода (мутирует глобал) ────────────────────────────────────────────
 function slideRow(row) {
   let tiles = row.filter(v => v !== 0);
   for (let i = 0; i < tiles.length - 1; i++) {
@@ -127,7 +124,6 @@ function onKey(e) {
   if (map[e.key]) { e.preventDefault(); move(map[e.key]); }
 }
 
-// ─── AI: чистая функция хода ──────────────────────────────────────────────────
 function slideRowPure(row) {
   let tiles = row.filter(v => v !== 0);
   let gained = 0;
@@ -164,7 +160,6 @@ function applyMove(g, dir) {
   return { grid: ng, gained: total };
 }
 
-// ─── AI: оценка позиции ───────────────────────────────────────────────────────
 function evaluate(g) {
   let empty = 0;
   let maxVal = 0;
@@ -221,7 +216,6 @@ function aiStep() {
   if (dir) move(dir);
 }
 
-// ─── AI: вкл/выкл ─────────────────────────────────────────────────────────────
 function toggleAI() {
   aiEnabled = !aiEnabled;
   const btn = document.getElementById('aiBtn');
@@ -241,7 +235,6 @@ function toggleAI() {
   }
 }
 
-// ─── Скорость ─────────────────────────────────────────────────────────────────
 function cycleSpeed() {
   speedIdx = (speedIdx + 1) % SPEEDS.length;
   document.getElementById('speedBtn').textContent = SPEEDS[speedIdx] + 'x';
@@ -251,7 +244,6 @@ function cycleSpeed() {
   }
 }
 
-// ─── Лог игр ──────────────────────────────────────────────────────────────────
 function getMaxTile() {
   let m = 0;
   for (let r = 0; r < SIZE; r++)
@@ -304,7 +296,6 @@ function updateLiveLine() {
   live.textContent = `▶ Игра #${gameNum + 1}   счёт: ${score}   плитка: ${maxTile}   ходов: ${moveCount}`;
 }
 
-// ─── Рендер доски ─────────────────────────────────────────────────────────────
 function render() {
   const board = document.getElementById('board');
   board.innerHTML = '';

@@ -29,7 +29,6 @@ let birds = [];
 let animId = null;
 let genLog = [];
 
-// ─── Neural Network ───────────────────────────────────────────────────────────
 class Brain {
   constructor(weights) {
     this.w1 = weights.slice(0, 25);
@@ -66,7 +65,6 @@ class Brain {
   }
 }
 
-// ─── Bird ─────────────────────────────────────────────────────────────────────
 class Bird {
   constructor(brain) {
     this.x = BIRD_X;
@@ -129,7 +127,6 @@ class Bird {
   }
 }
 
-// ─── Pipe ─────────────────────────────────────────────────────────────────────
 class Pipe {
   constructor() {
     const minTop = 50;
@@ -155,7 +152,6 @@ class Pipe {
   }
 }
 
-// ─── Genetic Algorithm ────────────────────────────────────────────────────────
 let bestBrain = null;
 let bestFitness = 0;
 
@@ -200,14 +196,12 @@ function nextGeneration() {
   birds = newBirds;
 }
 
-// ─── Speed ────────────────────────────────────────────────────────────────────
 function cycleSpeed() {
   speedIdx = (speedIdx + 1) % SPEEDS.length;
   speedMult = SPEEDS[speedIdx];
   document.getElementById('speedBtn').textContent = speedMult + 'x';
 }
 
-// ─── Game state ───────────────────────────────────────────────────────────────
 let playerBird = null;
 
 function restart() {
@@ -256,7 +250,6 @@ function togglePause() {
   if (!isPaused) loop();
 }
 
-// ─── Main loop ────────────────────────────────────────────────────────────────
 function loop() {
   if (isPaused || isOver) { draw(); return; }
   for (let i = 0; i < speedMult; i++) {
@@ -338,7 +331,6 @@ function endGame() {
   draw();
 }
 
-// ─── Drawing ──────────────────────────────────────────────────────────────────
 function drawBg() {
   ctx.fillStyle = '#87ceeb';
   ctx.fillRect(0, 0, W, H);
@@ -469,7 +461,6 @@ function draw() {
   }
 }
 
-// ─── Input ────────────────────────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
   if (aiEnabled) return;
   if (e.code === 'Space' || e.key === 'ArrowUp') {
@@ -494,7 +485,6 @@ canvas.addEventListener('click', () => {
   if (playerBird && playerBird.alive) playerBird.flap();
 });
 
-// ─── Init ─────────────────────────────────────────────────────────────────────
 best = 0;
 playerBird = new Bird(null);
 playerBird.brain = null;

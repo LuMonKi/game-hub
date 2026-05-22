@@ -27,7 +27,6 @@ import pawnPromotion from "../Helper/modalCreator.js";
 import HypotheticalClass from "../Others/HypotheticalBoard.js";
 import HypotheticalBoard from "../Others/HypotheticalBoard.js";
 
-// подсвечено или нет => состояние
 let hightlight_state = false;
 let inTurn = "white";
 let whoInCheck = null;
@@ -108,7 +107,7 @@ function captureInTurn(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -154,7 +153,6 @@ function callbackPawnPromotion(piece, id) {
   currentElement.append(image);
 }
 
-// переместить элемент на клетку с указанным id
 function moveElement(piece, id, castle) {
   const from = piece.current_position;
   const pawnIsPromoted = checkForPawnPromotion(piece, id);
@@ -217,23 +215,19 @@ function moveElement(piece, id, castle) {
 // текущее состояние подсвеченной клетки
 let selfHighlightState = null;
 
-// в режиме перемещения или нет
 let moveState = null;
 
-// локальная функция, которая очищает подсветку в состоянии
 function clearHighlightLocal() {
   clearHightlight();
   hightlight_state = false;
 }
 
-// переместить фигуру с X на Y
 function movePieceFromXToY(from, to) {
   to.piece = from.piece;
   from.piece = null;
   globalStateRender();
 }
 
-// событие белой пешки
 function whitePawnClick(square) {
   const piece = square.piece;
 
@@ -244,7 +238,7 @@ function whitePawnClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -303,7 +297,6 @@ function whitePawnClick(square) {
   globalStateRender();
 }
 
-// Событие для белого слона
 function whiteBishopClick(square) {
   const piece = square.piece;
 
@@ -314,7 +307,7 @@ function whiteBishopClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -384,18 +377,13 @@ function whiteBishopClick(square) {
     }
   }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
 
-  // captureIds.forEach((element) => {
   //   checkPieceOfOpponentOnElement(element, "white");
   // });
 
   globalStateRender();
 }
 
-// Событие для черного слона
 function blackBishopClick(square) {
   const piece = square.piece;
 
@@ -406,7 +394,7 @@ function blackBishopClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -476,11 +464,7 @@ function blackBishopClick(square) {
     }
   }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
 
-  // captureIds.forEach((element) => {
   //   checkPieceOfOpponentOnElement(element, "white");
   // });
 
@@ -489,7 +473,6 @@ function blackBishopClick(square) {
 
 
 
-// Черная ладбья
 function blackRookClick(square) {
   const piece = square.piece;
 
@@ -500,7 +483,7 @@ function blackRookClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -570,18 +553,13 @@ function blackRookClick(square) {
     }
   }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
 
-  // captureIds.forEach((element) => {
   //   checkPieceOfOpponentOnElement(element, "white");
   // });
 
   globalStateRender();
 }
 
-// Событие белой лодьи
 function whiteRookClick(square) {
   const piece = square.piece;
 
@@ -592,7 +570,7 @@ function whiteRookClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -662,18 +640,13 @@ function whiteRookClick(square) {
     }
   }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
 
-  // captureIds.forEach((element) => {
   //   checkPieceOfOpponentOnElement(element, "white");
   // });
 
   globalStateRender();
 }
 
-// // Обработка клика по рыцарю
 function whiteKnightClick(square) {
   const piece = square.piece;
 
@@ -684,7 +657,7 @@ function whiteKnightClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -707,14 +680,7 @@ function whiteKnightClick(square) {
   const flatArray = globalState.flat();
 
   let hightlightSquareIds = giveKnightHighlightIds(current_pos);
-  // const { bottom, top, right, left } = hightlightSquareIds;
-  // let temp = [];
 
-  // let result = [];
-  // result.push(checkSquareCaptureId(bottom));
-  // result.push(checkSquareCaptureId(top));
-  // result.push(checkSquareCaptureId(right));
-  // result.push(checkSquareCaptureId(left));
 
   // // Сохранить во временный массив
   // temp.push(bottom);
@@ -758,9 +724,7 @@ function whiteKnightClick(square) {
   //   }
   // }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
+
 
   hightlightSquareIds.forEach((element) => {
     checkPieceOfOpponentOnElement(element, "white");
@@ -769,7 +733,6 @@ function whiteKnightClick(square) {
   globalStateRender();
 }
 
-// // Обработка клика по рыцарю
 function blackKnightClick(square) {
   const piece = square.piece;
 
@@ -780,7 +743,7 @@ function blackKnightClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -855,9 +818,7 @@ function blackKnightClick(square) {
   //   }
   // }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
+
 
   hightlightSquareIds.forEach((element) => {
     checkPieceOfOpponentOnElement(element, "black");
@@ -866,7 +827,6 @@ function blackKnightClick(square) {
   globalStateRender();
 }
 
-// Имент белая королев
 function whiteQueenClick(square) {
   const piece = square.piece;
 
@@ -877,7 +837,7 @@ function whiteQueenClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -964,18 +924,13 @@ function whiteQueenClick(square) {
     }
   }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
 
-  // captureIds.forEach((element) => {
   //   checkPieceOfOpponentOnElement(element, "white");
   // });
 
   globalStateRender();
 }
 
-// Белый кароль ивент
 function whiteKingClick(square) {
   const piece = square.piece;
 
@@ -986,7 +941,7 @@ function whiteKingClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -1094,17 +1049,12 @@ function whiteKingClick(square) {
     }
   }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
 
-  // captureIds.forEach((element) => {
   //   checkPieceOfOpponentOnElement(element, "white");
   // });
 
   globalStateRender();
 }
-// Черный кароль ивент
 function blackKingClick(square) {
   const piece = square.piece;
 
@@ -1115,7 +1065,7 @@ function blackKingClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -1222,18 +1172,13 @@ function blackKingClick(square) {
     }
   }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
 
-  // captureIds.forEach((element) => {
   //   checkPieceOfOpponentOnElement(element, "white");
   // });
 
   globalStateRender();
 }
 
-// Черная королева ивент
 function blackQueenClick(square) {
   const piece = square.piece;
 
@@ -1244,7 +1189,7 @@ function blackQueenClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -1331,18 +1276,13 @@ function blackQueenClick(square) {
     }
   }
 
-  // let captureIds = [col1, col2];
-  console.log(captureIds);
-  // // captureIds = checkSquareCaptureId(captureIds);
 
-  // captureIds.forEach((element) => {
   //   checkPieceOfOpponentOnElement(element, "white");
   // });
 
   globalStateRender();
 }
 
-// Событие для черной пешки
 function blackPawnClick(square) {
   // Очистить доску от всех предыдущих выделений
   const piece = square.piece;
@@ -1354,7 +1294,7 @@ function blackPawnClick(square) {
   }
 
   if (square.captureHighlight) {
-    // movePieceFromXToY();
+
     moveElement(selfHighlightState, piece.current_position);
     clearPreviousSelfHighlight(selfHighlightState);
     clearHighlightLocal();
@@ -1424,12 +1364,10 @@ function clearPreviousSelfHighlight(piece) {
       .getElementById(piece.current_position)
       .classList.remove("highlightYellow");
     console.log(piece);
-    // selfHighlight = false;
     selfHighlightState = null;
   }
 }
 
-// // Событие для черной пешки
 
 function GlobalEvent() {
   ROOT_DIV.addEventListener("click", function (event) {

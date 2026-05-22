@@ -1,4 +1,3 @@
-// black pieces
 function blackPawn(current_position) {
   return {
     current_position,
@@ -44,7 +43,6 @@ function blackRook(current_position) {
   };
 }
 
-// white pieces
 function whitePawn(current_position) {
   return {
     current_position,

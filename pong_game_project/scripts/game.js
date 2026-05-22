@@ -44,7 +44,6 @@ class Game {
 
     firstLaunch() {
         this.print.drawBackground()
-  	    //this.support()
         this.playerL.draw()
         this.playerR.draw()
         this.print.drawScore()
@@ -79,7 +78,6 @@ class Game {
         this.ball.update()
         this.playerL.update()
         this.playerR.update()
-   		//this.support()
         this.start(this.reqId)
     }
 
@@ -93,7 +91,6 @@ class Game {
             this.playerL.draw()
             this.playerR.draw()
             this.ball.draw()
-        	//this.support()
             this.ball.dropBall(align)
             this.print.drawBallDirection()
         }, '800')

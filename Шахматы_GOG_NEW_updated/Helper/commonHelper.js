@@ -1,7 +1,6 @@
 import { globalState } from "../index.js";
 import { keySquareMapper } from "../index.js";
 
-// функция для проверки наличия фигуры противника
 function checkPieceOfOpponentOnElement(id, color) {
   const opponentColor = color === "white" ? "BLACK" : "WHITE";
 
@@ -19,7 +18,6 @@ function checkPieceOfOpponentOnElement(id, color) {
   return false;
 }
 
-// функция для проверки наличия фигуры противника
 function checkPieceOfOpponentOnElementNoDom(id, color) {
   const opponentColor = color === "white" ? "BLACK" : "WHITE";
 
@@ -34,7 +32,6 @@ function checkPieceOfOpponentOnElementNoDom(id, color) {
   return false;
 }
 
-// функция для проверки наличия фигуры по идентификатору клетки
 function checkWeatherPieceExistsOrNot(squareId) {
   const square = keySquareMapper[squareId];
 
@@ -45,7 +42,6 @@ function checkWeatherPieceExistsOrNot(squareId) {
   }
 }
 
-// функция для проверки идентификаторов захваченных клеток
 function checkSquareCaptureId(array) {
   let returnArray = [];
 
@@ -62,11 +58,9 @@ function checkSquareCaptureId(array) {
   return returnArray;
 }
 
-// функция для получения идентификаторов подсвеченных клеток для слона
 function giveBishopHighlightIds(id) {
   let finalReturnArray = [];
 
-  // определяет идентификаторы клеток сверху слева
   function topLeft(id) {
     let alpha = id[0];
     let num = Number(id[1]);
@@ -81,7 +75,6 @@ function giveBishopHighlightIds(id) {
     return resultArray;
   }
 
-  // находит идентификаторы клеток снизу слева
   function bottomLeft(id) {
     let alpha = id[0];
     let num = Number(id[1]);
@@ -96,7 +89,6 @@ function giveBishopHighlightIds(id) {
     return resultArray;
   }
 
-  // находит идентификаторы клеток сверху справа
   function topRight(id) {
     let alpha = id[0];
     let num = Number(id[1]);
@@ -111,7 +103,6 @@ function giveBishopHighlightIds(id) {
     return resultArray;
   }
 
-  // находит идентификаторы клеток снизу справа
   function bottomRight(id) {
     let alpha = id[0];
     let num = Number(id[1]);
@@ -146,7 +137,6 @@ function giveBishopCaptureIds(id, color){
   const { bottomLeft, topLeft, bottomRight, topRight } = hightlightSquareIds;
   let returnArr = [];
 
-  // вставить в временный массив
   temp.push(bottomLeft);
   temp.push(topLeft);
   temp.push(bottomRight);
@@ -192,7 +182,6 @@ function giveRookCapturesIds(id,color){
   const { bottom, top, right, left } = hightlightSquareIds;
   let returnArr = [];
 
-  // вставить в временный массив
   temp.push(bottom);
   temp.push(top);
   temp.push(right);
@@ -234,18 +223,15 @@ function giveQueenCapturesIds(id,color){
   return returnArr.flat();
 }
 
-// функция для получения идентификаторов подсвеченных клеток для ладьи
 function giveRookHighlightIds(id) {
   let finalReturnArray = [];
 
-  // определяет идентификатор клетки сверху
   function top(id) {
     let alpha = id[0];
     let num = Number(id[1]);
     let resultArray = [];
 
     while (num != 8) {
-      // alpha = String.fromCharCode(alpha.charCodeAt(0) - 1);
       num = num + 1;
       resultArray.push(`${alpha}${num}`);
     }
@@ -253,14 +239,12 @@ function giveRookHighlightIds(id) {
     return resultArray;
   }
 
-  // находит идентификаторы клеток снизу
   function bottom(id) {
     let alpha = id[0];
     let num = Number(id[1]);
     let resultArray = [];
 
     while (num != 1) {
-      // alpha = String.fromCharCode(alpha.charCodeAt(0) - 1);
       num = num - 1;
       resultArray.push(`${alpha}${num}`);
     }
@@ -268,7 +252,6 @@ function giveRookHighlightIds(id) {
     return resultArray;
   }
 
-  // находит идентификаторы клеток справа
   function right(id) {
     let alpha = id[0];
     let num = Number(id[1]);
@@ -276,14 +259,12 @@ function giveRookHighlightIds(id) {
 
     while (alpha != "h") {
       alpha = String.fromCharCode(alpha.charCodeAt(0) + 1);
-      // num = num + 1;
       resultArray.push(`${alpha}${num}`);
     }
 
     return resultArray;
   }
 
-  // находит идентификаторы клеток слева
   function left(id) {
     let alpha = id[0];
     let num = Number(id[1]);
@@ -291,7 +272,6 @@ function giveRookHighlightIds(id) {
 
     while (alpha != "a") {
       alpha = String.fromCharCode(alpha.charCodeAt(0) - 1);
-      // num = num + 1;
       resultArray.push(`${alpha}${num}`);
     }
 
@@ -306,7 +286,6 @@ function giveRookHighlightIds(id) {
   };
 }
 
-// функция для получения идентификаторов подсвеченных клеток для коня
 function giveKnightHighlightIds(id) {
 
   if (!id) {
@@ -361,7 +340,6 @@ function giveKnightHighlightIds(id) {
       }
 
       num = num + 1;
-      // alpha = String.fromCharCode(alpha.charCodeAt(0) + 1);
       resultArray.push(`${alpha}${num}`);
       temp += 1;
     }
@@ -380,7 +358,6 @@ function giveKnightHighlightIds(id) {
         let alpha2 = String.fromCharCode(alpha.charCodeAt(0) - 1);
         finalReturnArray.push(`${alpha2}${number}`);
       }
-      // resultArray.push(`${Number(lastElement[1])}`);
 
       return finalReturnArray;
     } else {
@@ -417,7 +394,6 @@ function giveKnightHighlightIds(id) {
       if (number > 1) {
         finalReturnArray.push(`${alpha}${number - 1}`);
       }
-      // resultArray.push(`${Number(lastElement[1])}`);
 
       return finalReturnArray;
     } else {
@@ -438,7 +414,6 @@ function giveKnightHighlightIds(id) {
       }
 
       num = num - 1;
-      // alpha = String.fromCharCode(alpha.charCodeAt(0) + 1);
       resultArray.push(`${alpha}${num}`);
       temp += 1;
     }
@@ -457,7 +432,6 @@ function giveKnightHighlightIds(id) {
         let alpha2 = String.fromCharCode(alpha.charCodeAt(0) - 1);
         finalReturnArray.push(`${alpha2}${number}`);
       }
-      // resultArray.push(`${Number(lastElement[1])}`);
 
       return finalReturnArray;
     } else {
@@ -486,7 +460,6 @@ function giveKnightCaptureIds(id, color) {
   return returnArr;
 }
 
-// функция для получения идентификаторов подсвеченных клеток для ферзя
 function giveQueenHighlightIds(id){
   const rookMoves = giveRookHighlightIds(id)
   const bishopMoves = giveBishopHighlightIds(id);
