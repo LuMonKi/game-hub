@@ -1,0 +1,70 @@
+// Общие стили
+* {
+  padding: 0; // Убираем все отступы
+  margin: 0; // Убираем внешние отступы
+  box-sizing: border-box; // Устанавливаем модель коробки для всех элементов
+  overflow: hidden; // Скрываем содержимое, выходящее за границы
+}
+
+body {
+  display: flex; // Центрируем содержимое
+  justify-content: center; // Горизонтальное центрирование
+  align-items: center; // Вертикальное центрирование
+  height: 100vh; // Высота окна браузера
+  height: 100svh; // Высота для современных браузеров с учётом панели управления
+  background: linear-gradient(90deg, #395492, #0099c0, #3dd5a8); // Градиентный фон
+  font-family: Arial, Helvetica, sans-serif; // Основной шрифт
+  user-select: none; // Запрет на выделение текста
+}
+
+// Стили для игрового поля
+.grid {
+  display: grid; // Используем сетку для игрового поля
+  grid-template-columns: repeat(10, auto); // 10 столбцов с авторазмером
+  grid-template-rows: repeat(20, auto); // 20 строк с авторазмером
+  padding: 0.6vh; // Внутренний отступ для сетки
+  gap: 0.3vh; // Расстояние между ячейками
+  border-radius: 0.6vh; // Скругленные углы сетки
+  background-color: rgba(1, 8, 89, 0.5); // Полупрозрачный фон сетки
+
+  > div {
+    $cell-size: min(4.5vh, 7.5vw); // Адаптивный размер ячеек
+    height: $cell-size; // Высота ячейки
+    width: $cell-size; // Ширина ячейки
+    border-radius: 0.3vh; // Скругленные углы ячейки
+    background-color: rgba(126, 150, 221, 0.2); // Полупрозрачный цвет по умолчанию
+
+    &.ghost {
+      background-color: rgba(255, 255, 255, 0.2); // Полупрозрачный белый для \"призрака\"
+    }
+
+    // Стили для каждой фигуры
+    &.I {
+      background-color: #6be1ec; // Цвет фигуры \"I\"
+    }
+
+    &.J {
+      background-color: #5eb0f3; // Цвет фигуры \"J\"
+    }
+
+    &.L {
+      background-color: #f2c35b; // Цвет фигуры \"L\"
+    }
+
+    &.O {
+      background-color: #f7e562; // Цвет фигуры \"O\"
+    }
+
+    &.S {
+      background-color: #7be17b; // Цвет фигуры \"S\"
+    }
+
+    &.Z {
+      background-color: #ff7c7c; // Цвет фигуры \"Z\"
+    }
+
+    &.T {
+      background-color: #d483ff; // Цвет фигуры \"T\"
+    }
+  }
+}

@@ -1,0 +1,559 @@
+@charset "UTF-8";
+/* Adding smooth animations to chess pieces and board */
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+body {
+  background-color: #464646;
+}
+
+.head {
+  display: flex;
+  height: 730px;
+  justify-content: center;
+}
+.head_Menu {
+  display: flex;
+  border: 3px solid #000000;
+  border-right: 0px solid #000000;
+  margin: 0 0 0 5px;
+}
+.head_Menu_Reboot {
+  border-right: 3px solid #000000;
+  font-family: cursive;
+  font-size: small;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  height: auto;
+  align-items: center;
+  background-color: rgb(109, 109, 109);
+}
+.head_Menu_Reboot_But {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 55px;
+  width: 60px;
+  border-bottom: 3px solid #000000;
+}
+.head_Menu_Reboot_Button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 29px;
+  width: 29px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  border: none;
+}
+.head_Menu_Reboot_Button_IMG {
+  border-right: 3px solid #000000;
+  padding: 0;
+  height: 31px;
+  width: 31px;
+  max-height: 31px;
+  max-width: 31px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.MoveHistory {
+  width: 220px;
+  border: 3px solid #000000;
+  background-color: rgb(233, 233, 233);
+  overflow: hidden;
+}
+
+.vue-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.vue-turn {
+  font-family: cursive;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 6px;
+  border-bottom: 3px solid #000;
+  flex-shrink: 0;
+}
+
+.turn-white {
+  background-color: #f0d9b5;
+  color: #333;
+}
+
+.turn-black {
+  background-color: #333;
+  color: #f0d9b5;
+}
+
+.vue-history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px;
+}
+
+.vue-empty {
+  font-family: cursive;
+  font-size: 12px;
+  color: #aaa;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.vue-move {
+  font-family: cursive;
+  font-size: 12px;
+  padding: 3px 4px;
+  margin: 2px 0;
+  border-radius: 3px;
+}
+
+.move-even {
+  background-color: #f5f5f5;
+}
+
+.move-odd {
+  background-color: #e8e8e8;
+}
+
+.vue-move-num {
+  color: #888;
+  font-size: 11px;
+}
+
+.squareRow {
+  display: flex;
+}
+
+.square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  transition: background-color 0.6s ease, transform 0.6s ease;
+}
+
+.white {
+  background-color: #f7f7f7;
+}
+
+.black {
+  background-color: #6d6d6d;
+}
+
+.highlightYellow {
+  background: rgba(195, 255, 156, 0.74);
+  transition: background 0.4s ease;
+}
+
+.piece {
+  max-height: 75px;
+  max-width: 75px;
+  cursor: pointer;
+  position: absolute;
+  transition: transform 0.5s ease, left 0.5s ease, top 0.5s ease;
+}
+
+.piece:hover {
+  transform: scale(1.2);
+}
+
+.piece.moving {
+  transition: transform 0.4s ease, left 0.8s ease, top 0.8s ease;
+}
+
+.captureColor {
+  background-color: #ee4b2b;
+  transition: background-color 0.6s ease;
+}
+
+/* Adding smooth animation when a piece moves */
+.moving-piece {
+  position: absolute;
+  transition: transform 0.8s ease, left 0.8s ease, top 0.8s ease;
+}
+
+/* Включение и отключение подсказок */
+.highlight {
+  width: 10px;
+  display: block;
+  height: 10px;
+  margin: auto;
+  background: rgba(195, 255, 156, 0.74);
+  border-radius: 50%;
+  transition: background 0.6s ease;
+  border: 0.5px solid #000000;
+}
+
+.modal {
+  font-family: cursive;
+  display: flex;
+  align-items: center;
+  background-color: rgba(121, 121, 121, 0.7607843137);
+  flex-direction: column;
+  max-width: 600px;
+  height: 200px;
+  margin: auto;
+  border: 3px solid #000000;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.pawnChoise {
+  margin-left: 5px;
+  margin-right: 5px;
+  max-width: 100px;
+  max-height: 100px;
+  transition: transform 0.3s ease;
+}
+
+.pawnChoise:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+  border: 1px solid #000000;
+}
+
+.modal.show {
+  max-height: 200px; /* или значение, подходящее для вашего модального окна */
+  opacity: 1;
+}
+
+.Chest {
+  display: grid;
+  max-height: 730px;
+  justify-content: center;
+  height: 750px;
+  align-items: center;
+}
+.Chest_Place {
+  border: 1px solid black;
+  height: auto;
+  width: auto;
+}
+.Chest_Columb {
+  width: auto;
+  height: auto;
+}
+.Chest_Root {
+  display: flex;
+  flex-direction: column;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 600px;
+  border: 3px solid #000000;
+}
+
+.Chest_Root {
+  transition: transform 0.5s ease;
+}
+.Chest_Root.flipped {
+  transform: rotate(180deg);
+}
+.Chest_Root .cell {
+  width: 100%;
+  height: 100%;
+}
+.Chest_Root .cell.black {
+  background-color: #769656;
+}
+.Chest_Root .cell.white {
+  background-color: #eeeed2;
+}
+
+.chess-container {
+  display: grid;
+  align-content: flex-start;
+  max-height: 730px;
+  background-color: #242424;
+}
+.chess-container .labels-top, .chess-container .labels-bottom {
+  font-family: cursive;
+  font-size: 1.5em;
+  display: grid;
+  grid-template-columns: repeat(8, auto);
+  text-align: center;
+  margin: 0 auto;
+  height: 60px;
+  width: 605px;
+  background-color: #a3a3a3;
+  border: 0.5px solid #000000;
+}
+.chess-container .labels-top .label, .chess-container .labels-bottom .label {
+  font-weight: bold;
+  font-size: 16px;
+  align-self: center;
+  justify-self: center;
+}
+.chess-container .labels-side {
+  font-family: cursive;
+  display: grid;
+  grid-template-rows: repeat(8, auto);
+  text-align: center;
+  width: 60px;
+  height: 605px;
+  background-color: #a3a3a3;
+  border: 0.5px solid #000000;
+}
+.chess-container .labels-side .label {
+  font-weight: bold;
+  font-size: 16px;
+  align-self: center;
+  justify-self: center;
+}
+.chess-container .main-grid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  height: 605px;
+}
+.chess-container .main-grid .chessboard {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  width: 500px;
+  height: 500px;
+}
+.chess-container .main-grid .chessboard .cell {
+  width: 100%;
+  height: 100%;
+}
+.chess-container .main-grid .chessboard .cell.black {
+  background-color: #769656;
+}
+.chess-container .main-grid .chessboard .cell.white {
+  background-color: #eeeed2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+body {
+  font-family: "Montserrat", sans-serif;
+  background: #f6f5f7;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0px 0 0px;
+  margin-top: 0px;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 0;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+}
+
+span {
+  font-size: 12px;
+}
+
+a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+}
+
+.container {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+}
+
+.form-container form {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.social-container {
+  margin: 20px 0;
+}
+
+.social-container a {
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  height: 40px;
+  width: 40px;
+}
+
+.form-container input {
+  background: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+button {
+  border-radius: 20px;
+  border: 1px solid #ff4b2b;
+  background: #ff445c;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:focus {
+  outline: none;
+}
+
+button.ghost {
+  background: transparent;
+  border-color: #fff;
+}
+
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.sign-up-container {
+  left: 0;
+  width: 50%;
+  z-index: 1;
+  opacity: 0;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+}
+
+.overlay {
+  background: #ff416c;
+  background: linear-gradient(to right, #ff4b2b, #ff416c) no-repeat 0 0/cover;
+  color: #fff;
+  position: relative;
+  left: -100%;
+  height: 100%;
+  width: 200%;
+  transform: translateY(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-panel {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40px;
+  height: 100%;
+  width: 50%;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 0.6s ease-in-out;
+}
+
+.overlay-right {
+  right: 0;
+  transform: translateY(0);
+}
+
+.overlay-left {
+  transform: translateY(-20%);
+}
+
+/* Move signin to right */
+.container.right-panel-active .sign-in-container {
+  transform: translateY(100%);
+}
+
+/* Move overlay to left */
+.container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+
+/* Bring signup over signin */
+.container.right-panel-active .sign-up-container {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+}
+
+/* Move overlay back to right */
+.container.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+
+/* Bring back the text to center */
+.container.right-panel-active .overlay-left {
+  transform: translateY(0);
+}
+
+/* Same effect for right */
+.container.right-panel-active .overlay-right {
+  transform: translateY(20%);
+}
+
+.footer {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.icons {
+  display: flex;
+  width: 30px;
+  height: 30px;
+  letter-spacing: 15px;
+  align-items: center;
+}/*# sourceMappingURL=styles.css.map */

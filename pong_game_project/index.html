@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pong</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/fav16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/fav32.png">
+</head>
+<body>
+
+  <div class="panel">
+    <div class="panel_score">
+      <span id="scoreL" class="score_num" style="color:#A55F02">0</span>
+      <span class="score_sep">:</span>
+      <span id="scoreR" class="score_num" style="color:#38887A">0</span>
+    </div>
+    <div class="panel_buttons">
+      <div class="panel_btn">
+        <a>МЕНЮ</a>
+        <button onclick="location.href='http://localhost:3000/'">🏠</button>
+      </div>
+      <div class="panel_btn">
+        <a>ПАУЗА</a>
+        <button id="pauseBtn" onclick="togglePause()">⏸</button>
+      </div>
+      <div class="panel_btn">
+        <a>РЕСТАРТ</a>
+        <button onclick="window.game && window.game.fullRestart()">🔄</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="game"></div>
+
+  <script>
+    function togglePause() {
+      if (!window.game) return
+      if (window.game.isPaused) {
+        window.game.resume()
+        document.getElementById('pauseBtn').textContent = '⏸'
+      } else {
+        window.game.pause()
+        document.getElementById('pauseBtn').textContent = '▶'
+      }
+    }
+  </script>
+  <script src="scripts/game.js" type="module"></script>
+
+</body>
+</html>

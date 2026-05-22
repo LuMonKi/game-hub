@@ -1,0 +1,176 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #464646;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: cursive;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.game-row {
+  display: flex;
+  flex-direction: row;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(4, 100px);
+  gap: 8px;
+  background-color: #242424;
+  border: 3px solid #000;
+  padding: 8px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  background-color: #6d6d6d;
+  border: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: bold;
+  font-family: cursive;
+  color: #1a1a1a;
+}
+
+.cell[data-val="2"]    { background-color: #eee4da; }
+.cell[data-val="4"]    { background-color: #ede0c8; }
+.cell[data-val="8"]    { background-color: #f2b179; color: #fff; }
+.cell[data-val="16"]   { background-color: #f59563; color: #fff; }
+.cell[data-val="32"]   { background-color: #f67c5f; color: #fff; }
+.cell[data-val="64"]   { background-color: #f65e3b; color: #fff; }
+.cell[data-val="128"]  { background-color: #edcf72; font-size: 22px; }
+.cell[data-val="256"]  { background-color: #edcc61; font-size: 22px; }
+.cell[data-val="512"]  { background-color: #edc850; font-size: 22px; }
+.cell[data-val="1024"] { background-color: #edc53f; font-size: 18px; }
+.cell[data-val="2048"] { background-color: #edc22e; font-size: 18px; color: #fff; }
+
+/* ── Панель ── */
+.panel {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(109, 109, 109);
+  border: 3px solid #000;
+  border-left: 0;
+  align-self: stretch;
+}
+
+.panel-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  flex: 1;
+  border-bottom: 3px solid #000;
+}
+
+.panel-item:last-child {
+  border-bottom: 0;
+}
+
+.panel-item a {
+  color: #e9e9e9;
+  font-size: 11px;
+}
+
+.panel-item span {
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.panel-item button {
+  margin-top: 6px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.panel-item button:active {
+  transform: scale(0.9);
+}
+
+/* ── Лог ── */
+#log {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.55);
+  border: 3px solid #000;
+  border-top: 0;
+  font-family: monospace;
+  font-size: 11px;
+  padding: 6px 10px;
+  min-height: 36px;
+}
+
+#log-header {
+  color: #ffdd88;
+  font-weight: bold;
+  margin-bottom: 3px;
+  border-bottom: 1px solid #444;
+  padding-bottom: 3px;
+}
+
+#log-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.log-row {
+  color: #aaa;
+  white-space: pre;
+}
+
+.log-row.has-pipe  { color: #77ff77; }
+.log-row.big-jump  { color: #ffe066; }
+.log-row.last-row  { font-weight: bold; }
+
+#log-live {
+  margin-top: 4px;
+  border-top: 1px solid #444;
+  padding-top: 3px;
+  color: #aaffaa;
+  font-weight: bold;
+  white-space: pre;
+  min-height: 14px;
+}
+
+/* ── Сообщение ── */
+#msg {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: cursive;
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 8px #000;
+  pointer-events: none;
+}

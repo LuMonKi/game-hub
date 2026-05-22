@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Змейка</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="canvas" width="400" height="400"></canvas>
+
+  <div class="panel">
+    <div class="panel-item">
+      <a>СЧЁТ</a>
+      <span id="score">0</span>
+    </div>
+    <div class="panel-item">
+      <a>ЛУЧШИЙ</a>
+      <span id="best">0</span>
+    </div>
+    <div class="panel-item">
+      <a>AI</a>
+      <button id="aiBtn" onclick="toggleAI()">🤖</button>
+    </div>
+    <div class="panel-item">
+      <a>ПАУЗА</a>
+      <button id="pauseBtn" onclick="togglePause()">⏸</button>
+    </div>
+    <div class="panel-item">
+      <a>РЕСТАРТ</a>
+      <button onclick="restart()">🔄</button>
+    </div>
+    <div class="panel-item">
+      <a>МЕНЮ</a>
+      <button onclick="location.href='http://localhost:3000/'">🏠</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

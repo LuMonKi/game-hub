@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>2048</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <div class="game-row">
+      <div id="board"></div>
+
+      <div class="panel">
+        <div class="panel-item">
+          <a>СЧЁТ</a>
+          <span id="score">0</span>
+        </div>
+        <div class="panel-item">
+          <a>ЛУЧШИЙ</a>
+          <span id="best">0</span>
+        </div>
+        <div class="panel-item">
+          <a>AI</a>
+          <button id="aiBtn" onclick="toggleAI()">🤖</button>
+        </div>
+        <div class="panel-item">
+          <a>СКОРОСТЬ</a>
+          <button id="speedBtn" onclick="cycleSpeed()">1x</button>
+        </div>
+        <div class="panel-item">
+          <a>РЕСТАРТ</a>
+          <button onclick="restart()">🔄</button>
+        </div>
+        <div class="panel-item">
+          <a>МЕНЮ</a>
+          <button onclick="location.href='http://localhost:3000/'">🏠</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="log">
+      <div id="log-header">ИГ &nbsp;&nbsp; СЧЁТ &nbsp;&nbsp;&nbsp;&nbsp; ПЛИТКА &nbsp; ХОДОВ &nbsp; ТРЕНД</div>
+      <div id="log-rows"></div>
+      <div id="log-live"></div>
+    </div>
+
+  </div>
+
+  <div id="msg"></div>
+
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/styles.css" />
+  <title>Chess-Game</title>
+</head>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="vue-app.js"></script>
+<script type="module" src="index.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<body>
+  <div class="head">
+    <div id="moveHistory" class="MoveHistory"></div>
+    <div class="head_Menu">
+      <div class="head_Menu_Reboot">
+        <div class="head_Menu_Reboot_But">
+          <a>REBOOT</a>
+          <button class="head_Menu_Reboot_Button" onclick="reloadPage()">
+
+            <img src="Assets/images/main/Reboot.png" alt="" class="head_Menu_Reboot_Button_IMG">
+            <script>
+              function reloadPage() {
+                location.reload();
+              }
+
+            </script>
+
+          </button>
+
+        </div>
+        <div class="head_Menu_Reboot_But">
+          <a>SKIN</a>
+          <button class="head_Menu_Reboot_Button" id="switchPiecesButton">
+
+            <img src="Assets/images/main/Reboot.png" alt="" class="head_Menu_Reboot_Button_IMG">
+            <script>
+             
+
+            </script>
+
+          </button>
+        </div>
+        <div class="head_Menu_Reboot_But">
+          <a>FLIP</a>
+          <button class="head_Menu_Reboot_Button" id="flipBoardButton">
+
+            <img src="Assets/images/main/Reboot.png" alt="" class="head_Menu_Reboot_Button_IMG">
+            <script>
+             
+            </script>
+          </button>
+        </div>
+        <div class="head_Menu_Reboot_But">
+          <a>AI</a>
+          <button class="head_Menu_Reboot_Button" id="aiButton">
+            <img src="Assets/images/main/Reboot.png" alt="" class="head_Menu_Reboot_Button_IMG">
+          </button>
+        </div>
+        <div class="head_Menu_Reboot_But">
+          <a>МЕНЮ</a>
+          <button class="head_Menu_Reboot_Button" onclick="location.href='http://localhost:3000/'">🏠</button>
+        </div>
+      </div>
+    </div>
+    <div class="Chest">
+      <div class="chess-container">
+        <div class="labels-top">
+          <div class="label">A</div>
+          <div class="label">B</div>
+          <div class="label">C</div>
+          <div class="label">D</div>
+          <div class="label">E</div>
+          <div class="label">F</div>
+          <div class="label">G</div>
+          <div class="label">H</div>
+        </div>
+        <div class="main-grid">
+          <div class="labels-side">
+            <div class="label">8</div>
+            <div class="label">7</div>
+            <div class="label">6</div>
+            <div class="label">5</div>
+            <div class="label">4</div>
+            <div class="label">3</div>
+            <div class="label">2</div>
+            <div class="label">1</div>
+          </div>
+      <div id="root" class="Chest_Root">
+      </div>
+      <div class="labels-side">
+        <div class="label">8</div>
+        <div class="label">7</div>
+        <div class="label">6</div>
+        <div class="label">5</div>
+        <div class="label">4</div>
+        <div class="label">3</div>
+        <div class="label">2</div>
+        <div class="label">1</div>
+      </div>
+    </div>
+    <div class="labels-bottom">
+      <div class="label">A</div>
+      <div class="label">B</div>
+      <div class="label">C</div>
+      <div class="label">D</div>
+      <div class="label">E</div>
+      <div class="label">F</div>
+      <div class="label">G</div>
+      <div class="label">H</div>
+    </div>
+    </div>
+    
+  </div>
+
+  <script src="ai_chess.js"></script>
+  <script src="ai_main.js"></script>
+</body>
+
+</html>
