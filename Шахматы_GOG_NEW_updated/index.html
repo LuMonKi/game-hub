@@ -129,6 +129,7 @@
       if (vw >= 750) {
         container.style.transform = '';
         container.style.marginTop = '';
+        container.style.marginBottom = '';
         if (chest) chest.style.height = '';
         return;
       }
@@ -137,13 +138,14 @@
       const naturalH = 725;
       const scale = (vw * 0.95) / naturalW;
 
+      // transform-origin: top center — верх остаётся на месте,
+      // низ поднимается. Убираем лишнее пространство только снизу.
       container.style.transform = `scale(${scale})`;
       container.style.transformOrigin = 'top center';
+      container.style.marginTop = '0px';
 
       const scaledH = naturalH * scale;
-      const offset = (scaledH - naturalH) / 2;
-      container.style.marginTop = offset + 'px';
-      container.style.marginBottom = offset + 'px';
+      container.style.marginBottom = (scaledH - naturalH) + 'px'; // отрицательное
       if (chest) chest.style.height = scaledH + 'px';
     }
 
