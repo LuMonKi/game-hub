@@ -118,6 +118,38 @@
 
   <script src="ai_chess.js"></script>
   <script src="ai_main.js"></script>
+
+  <script>
+    function scaleChessBoard() {
+      const container = document.querySelector('.chess-container');
+      const chest = document.querySelector('.Chest');
+      if (!container) return;
+
+      const vw = window.innerWidth;
+      if (vw >= 750) {
+        container.style.transform = '';
+        container.style.marginTop = '';
+        if (chest) chest.style.height = '';
+        return;
+      }
+
+      const naturalW = 725;
+      const naturalH = 725;
+      const scale = (vw * 0.95) / naturalW;
+
+      container.style.transform = `scale(${scale})`;
+      container.style.transformOrigin = 'top center';
+
+      const scaledH = naturalH * scale;
+      const offset = (scaledH - naturalH) / 2;
+      container.style.marginTop = offset + 'px';
+      container.style.marginBottom = offset + 'px';
+      if (chest) chest.style.height = scaledH + 'px';
+    }
+
+    document.addEventListener('DOMContentLoaded', scaleChessBoard);
+    window.addEventListener('resize', scaleChessBoard);
+  </script>
 </body>
 
 </html>

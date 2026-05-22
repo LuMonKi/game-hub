@@ -556,50 +556,46 @@ button.ghost {
   letter-spacing: 15px;
   align-items: center;
 }
+
+
 /* ── MOBILE ── */
 @media (max-width: 750px) {
-  :root {
-    --sq: clamp(34px, calc((100vw - 70px) / 8), 75px);
-    --label: clamp(28px, calc((100vw - 70px) / 8 * 0.5), 60px);
-  }
-
   body {
-    height: auto;
-    min-height: 100dvh;
-    justify-content: flex-start;
-    align-items: center;
+    height: auto !important;
+    min-height: 100vh;
+    justify-content: flex-start !important;
+    overflow-x: hidden;
     padding: 8px 0 20px;
   }
 
-  /* Всё складываем в колонку */
   .head {
-    flex-direction: column;
-    height: auto;
+    flex-direction: column !important;
+    height: auto !important;
+    width: 100vw;
     align-items: center;
-    gap: 6px;
-    width: 100%;
+    gap: 8px;
   }
 
-  /* Меню кнопок — горизонтально сверху */
+  /* Кнопки — горизонтально сверху */
   .head_Menu {
     order: 1;
-    border: 2px solid #000;
+    width: 95vw;
     margin: 0;
-    width: calc(8 * var(--sq) + var(--label) * 2);
+    border: 2px solid #000;
   }
 
   .head_Menu_Reboot {
-    flex-direction: row;
+    flex-direction: row !important;
     border-right: none;
     width: 100%;
     justify-content: space-around;
   }
 
   .head_Menu_Reboot_But {
-    height: 46px;
-    width: auto;
     flex: 1;
-    border-bottom: none;
+    height: 50px !important;
+    width: auto !important;
+    border-bottom: none !important;
     border-right: 2px solid #000;
   }
 
@@ -609,67 +605,34 @@ button.ghost {
 
   .head_Menu_Reboot_But a {
     font-size: 10px;
-    margin: 0;
+    margin: 2px 0;
   }
 
-  /* Доска */
+  /* Доска — в центре */
   .Chest {
     order: 2;
-    height: auto;
-    max-height: none;
+    height: auto !important;
+    max-height: none !important;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
   }
 
+  /* Масштаб задаётся через JS */
   .chess-container {
-    max-height: none;
+    transform-origin: top center;
+    max-height: none !important;
+    flex-shrink: 0;
   }
 
-  .chess-container .labels-top,
-  .chess-container .labels-bottom {
-    width: calc(8 * var(--sq));
-    height: calc(var(--label) * 0.8);
-    font-size: 11px;
-  }
-
-  .chess-container .labels-top .label,
-  .chess-container .labels-bottom .label {
-    font-size: 11px;
-  }
-
-  .chess-container .labels-side {
-    width: var(--label);
-    height: calc(8 * var(--sq));
-  }
-
-  .chess-container .labels-side .label {
-    font-size: 11px;
-  }
-
-  .chess-container .main-grid {
-    height: calc(8 * var(--sq));
-  }
-
-  /* Клетки */
-  .square {
-    width: var(--sq);
-    height: var(--sq);
-  }
-
-  /* Фигуры */
-  .piece {
-    max-width: var(--sq);
-    max-height: var(--sq);
-  }
-
-  /* Корень доски */
-  .Chest_Root {
-    height: calc(8 * var(--sq));
-  }
-
-  /* История ходов — снизу, компактная */
+  /* История ходов — снизу */
   .MoveHistory {
     order: 3;
-    width: calc(8 * var(--sq) + var(--label) * 2);
+    width: 95vw !important;
     height: 80px;
+    min-height: 0;
   }
 }
+
 /*# sourceMappingURL=styles.css.map */
